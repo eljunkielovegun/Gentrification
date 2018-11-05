@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+
+
+<html>
+<head>
+    <title>The Ghana Think Tank: Gentrifier</title>
+    <link href="public/style.css" rel="stylesheet" type="text/css"/>
+    <!-- need to link this! -->
+    <script type="text/javascript" src="gentrifiedParsed.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous">
+    </script>
+
+    </head>
+
+<body>
+    
+     
+    
+<!--   <button type="button" id="button">fullscreen </button> <br>  -->
+    <button onclick="openFullscreen();" id="button">Open Fullscreen</button><br>
+
+    <span id="inputspan"> 
+    <form name="inputform" onsubmit="return false" >
+        <input id="input" type="text" name="textform" autocomplete="off" placeholder= "WHAT IS YOUR PROBLEM WITH GENTRIFICATION?" size="100%" ><br>
+<!--        <input type="submit">-->
+        
+        </form>
+    
+    </span>
+
+ <script>
+     
+     
+
+    
+        let i = 0; 
+        var inputflag=0
+        let dynamicDiv;
+        let showDiv= document.createElement('div');
+        var inputEvent = document.querySelector("#input");
+        let getInput;
+        var genArrayOldLen = gentrifiedArrayfromFile.length;
+    //     document.body.appendChild(showDiv)
+    // showDiv = showDiv.style.opacity=0;
+
+        
+    realTimeSched(showDiv);  
+
+    console.log("[- |_ _T |_| |\| /< | [- |_ () \/ [- (_, |_| |\|");//kp sig
+    console.log("for The Ghana Think Tank @ IDB Novemebr 2018");//kp sig
+     
+    hitEnter(inputEvent, gentrifiedArrayfromFile, dynamicDiv, i);
+    inputField(showDiv);
+
+
+/*----------------------------------------------------------------------*/         
+/*--------------    FUNCTIONS----FUNCTIONS    --------------------------*/     
+/*----------------------------------------------------------------------*/   
+
+function hitEnter(inputEvent, gentrifiedArrayfromFile,dynamicDiv, i){
+   // console.log('hitEnter i = '+i);
+   inputEvent.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+         var getInput = inputEvent.value;
+        // console.log('inputEvent i ='+i);
+        /*---------FILTER OUT EMPTY-----------------*/ 
+        if (getInput === ""){
+            input.placeholder = 'PLEASE TYPE YOUR RESPONSE';
+
+        } else{
+        /*---------GET INPUT ADD TO ARRAY-----------------*/ 
+       gentrifiedArrayfromFile.push(getInput);
+            //console.log(dynamicDiv);
+            //console.log(show);
+        send(getInput);
+
+        this.form.reset();
+        document.activeElement.blur();
+        
+        }
+    }
+  
+})
+     };
+/*----------------------    Send User Input to Node     -----------------------*/   
+function send(getInput){
+					getInput.title = "title";
+                    getInput.message = "message";
+                    console.log(getInput);
+					
+					$.ajax({
+						type: 'POST',
+                        data:  getInput,
+                        
+				        contentType: 'text/plain',
+                        url: 'http://localhost:3000/Gentrifier',						
+                        success: function(data) {
+                            console.log('success');
+                           // console.log(JSON.stringify(data));
+                        }
+                    });
+                };
+     
+       
+/*-------------------------------------------------------------------------------------*/  
+/*--------------------------    REAL TIME SCHEDULER   ---------------------------------*/     
+/*-------------------------------------------------------------------------------------*/                
+    function realTimeSched(showDiv)
+{
+    
+    var t = 5;
+    repeater(i,t, showDiv);
+
+    //var gentArrayLenOld = gentrifiedArrayfromFile.length;
+    setTimeout(realTimeSched, t*1000);
+}
+
+
+/*-------------------------------------------------------------------------------------*/  
+/*--------------------------Create and display content---------------------------------*/     
+/*-------------------------------------------------------------------------------------*/
+
+function repeater(i,t, dynamicDiv, showDiv) {
+    //console.log(genArrayOldLen);
+/*-----------Create ddiv if new entry----------------------------------*/
+    if (genArrayOldLen < gentrifiedArrayfromFile.length){
+
+        var showDiv =  document.createElement('div');// this is repeated can be put above
+        var temp= gentrifiedArrayfromFile.length - 1;
+        getDiv = gentrifiedArrayfromFile[temp]; 
+
+        genArrayOldLen = gentrifiedArrayfromFile.length;
+    
+    } else {
+/*-----------Create Div from File----------------------------------*/
+    var showDiv =  document.createElement('div'); // this is repeated can be put above
+    
+    var rand = Math.random() * gentrifiedArrayfromFile.length;
+    rand = Math.trunc(rand);
+    var getDiv = gentrifiedArrayfromFile[rand];
+   // console.log(gentrifiedArrayfromFile.length); 
+ 
+    }
+/*-----------Attach either Div and show it-----------------------*/    
+    showDiv.innerHTML = getDiv;
+    document.body.appendChild(showDiv)
+    
+    showDiv.style.opacity = 1;
+
+ /*-----------repeat afer timeout function-----------------------*/              
+        setTimeout(function() {
+            
+            showDiv.style.opacity = 0;
+                
+        },t*1000); 
+    return showDiv;
+ }
+     
+     
+// Input Form Field
+// Need to have any key open the focus
+function inputField(showDiv){
+    console.log(showDiv.style.opacity);
+
+    document.addEventListener('keydown', function(event) {
+        console.log("keydown");
+
+     let input = document.getElementById('input');
+     let span = document.getElementById('inputspan');
+
+     input.focus();
+     
+
+     // Need to have any key open the focus -------------------------*******************
+
+     input.onfocus = function (){
+         input.placeholder = 'PRESS ENTER TO HAVE YOUR COMMENT ADDDED';
+         
+        
+     }
+    });
+    
+     input.onblur = function() {
+         input.placeholder = 'WHAT IS YOUR PROBLEM WITH GENTRIFICATION?';
+     }
+}   
+        
+     </script>
+    
+    
+    
+    
+<!--    FULL SCREEN STUFF-->
+
+    <script type="text/javascript">
+        
+      
+  /* Get the documentElement (<html>) to display the page in fullscreen */
+var elem = document.documentElement;
+
+/* View in fullscreen */
+function openFullscreen() {
+    button.style.opacity = 0;
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.mozRequestFullScreen) { /* Firefox */
+    elem.mozRequestFullScreen();
+  } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { /* IE/Edge */
+    elem.msRequestFullscreen();
+  }
+}      
+        
+    </script>
+
+    
+    </body>
+
+
+</html>

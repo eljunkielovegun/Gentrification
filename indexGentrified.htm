@@ -1,0 +1,183 @@
+
+
+<html>
+<head>
+    <title>The Ghana Think Tank: Gentrified</title>
+    <link href="public/style.css" rel="stylesheet" />
+    
+
+<!--
+        Drawn from here on Sept. 26, 2018 https://cdnjs.com/libraries/jquery
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+-->
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous">
+    </script>
+    
+
+    
+ 
+   
+    </head>
+
+<body>
+    
+     
+    
+<!--   <button type="button" id="button">fullscreen </button> <br>  -->
+    <button onclick="openFullscreen();" id="button">Open Fullscreen</button><br>
+    
+   <div id="text-0">PEOPLE DON'T GET INVOLVED IN THE ACTION UNTIL THE PAIN IS GREATER THAN THE FEAR</div>
+    <div id="text-1">WE DIDN'T BUILD THIS COMMUNITY SO WHITE PEOPLE COULD HAVE A COMMUNITY GARDEN</div>
+    <div id="text-2">WHEN WE SEE THE ARTISTS COMING WE KNOW OUR TAXES ARE GOING TO GO UP</div>
+      <div id="text-3">WE ARE GROWING SO EITHER PUSH PEOPLE OUT OR CHANGE THE CORE OF THE CITY. EITHER YOUR FORM OF HOUSING IS GOING TO CHANGE OR YOU ARE GOING TO HAVE TO MOVE</div>
+      <div id="text-4">WHENEVER WE MAKE AN IMPROVEMENT THAT BRINGS IN THE MIDDLE CLASS AND THAT IS WHAT DRIVES US OUT</div>
+    
+    
+    <span id="inputspan"> 
+    <form onsubmit="return false" >
+        <input id="input" type="text" name="textform" autocomplete="off" placeholder= "WHAT IS YOUR PROBLEM WITH GENTRIFICATION?" size="100%" ><br>
+<!--        <input type="submit">-->
+        
+        </form>
+    
+    </span>
+    
+    
+    
+   
+    
+ <script>
+     
+     
+     
+ // What to show at the beginning       
+        let a = document.getElementById('text-0');
+        let b = document.getElementById('text-1');
+        let c = document.getElementById('text-2');
+        let d = document.getElementById('text-3');
+        let e = document.getElementById('text-4'); 
+    
+        var i = 0; 
+        var inputflag=0;
+        let show =[a,b,c,d,e];
+        let dynamicDiv;
+      
+        var inputEvent = document.querySelector("#input");
+        let getInput;
+
+  //DO SOMETHING
+    
+    realTimeSched();  
+     
+    hitEnter(inputEvent, show);
+     
+ //FUNCTIONS    
+     
+function hitEnter(inputEvent, show,dynamicDiv){
+   inputEvent.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        i=5;
+         var getInput = inputEvent.value;
+       
+        
+    dynamicDiv = document.createElement('div');
+        dynamicDiv.innerHTML=getInput;
+        dynamicDiv.setAttribute('id', 'text-'+i);
+        document.body.appendChild(dynamicDiv);
+       // dynamicDiv.style.opacity = 1;
+        
+        
+      show.push(dynamicDiv);
+     console.log(dynamicDiv);
+      
+        this.form.reset();
+        document.activeElement.blur();
+        
+    i++;
+    }
+})
+     };
+
+
+     
+        
+    function realTimeSched()
+{
+   
+    var t = 5;
+    
+   
+    i++;
+    
+    repeater(i,t);
+
+    setTimeout(realTimeSched, t*1000);
+}
+
+       
+           
+    function repeater(i,t, dynamicDiv) 
+{
+    
+   //  console.log(show); 
+    
+    i = i % show.length;
+    show[i].style.opacity = 1;
+            
+        setTimeout(function() {
+            
+            show[i].style.opacity = 0;
+                
+        },t*1000);
+ }
+     
+     
+// Input Form Field
+     
+     let input = document.getElementById('input');
+     let span = document.getElementById('inputspan')
+     input.onfocus = function (){
+         input.placeholder = 'HIT ENTER TO HAVE YOUR CONTRIBUTION ADDDED';
+     }
+     input.onblur = function() {
+         input.placeholder = 'WHAT IS YOUR PROBLEM WITH GENTRIFICATION?';
+     }
+     
+        
+     </script>
+    
+    
+    
+    
+<!--    FULL SCREEN STUFF-->
+
+    <script type="text/javascript">
+        
+      
+  /* Get the documentElement (<html>) to display the page in fullscreen */
+var elem = document.documentElement;
+
+/* View in fullscreen */
+function openFullscreen() {
+    button.style.opacity = 0;
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.mozRequestFullScreen) { /* Firefox */
+    elem.mozRequestFullScreen();
+  } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { /* IE/Edge */
+    elem.msRequestFullscreen();
+  }
+}      
+        
+    </script>
+
+    
+    </body>
+
+
+</html>
