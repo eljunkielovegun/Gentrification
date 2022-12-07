@@ -10,8 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "badwords": "^1.0.0",
-    "body-parser": "^1.18.3",
-    "express": "^4.16.3",
+    "body-parser": "^1.20.1",
+    "express": "^4.18.2",
     "file-system": "^2.2.2",
     "line-reader": "^0.4.0"
   }
